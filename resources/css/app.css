@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root{
+    --bg-color:#F5F5F5;
+    --text-color:#333333;
+    --input-bg-color: #FFFFFF;
+    --input-text-color:#000000;
+}
