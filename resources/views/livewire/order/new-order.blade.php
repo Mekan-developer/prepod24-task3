@@ -40,6 +40,17 @@
                     
                     <input type="text" id="textInput" placeholder="Or type something..." oninput="updateSelect(this)" style="display:none;" class="block w-full p-1 border-2 border-gray-300 mt-1 rounded-sm shadow-sm bg-[var(--input-bg-color)] focus:outline-none'"/>
                 </div>
+
+                <div>
+                    <label for="explanations">Пояснения и комментарии к заказу</label>
+
+                    <textarea name="explanations" id="explanations" rows="4" class="w-full">
+
+                    </textarea>
+                </div>
+                
+                <x-form.btn-submit title="ДАЛЕЕ" class="bg-[var(--green)]" />
+
             </div>
             
 
