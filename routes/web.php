@@ -1,21 +1,16 @@
 <?php
 
-use App\Http\Controllers\Auth\OTPController;
-use App\Http\Controllers\Auth\RegisterController;
+
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-
-// Route::post('/create-user',[RegisterController::class,'createUser'])->name('register.user');
-
-// 
-// Route::post('send-otp',[RegisterController::class,'sendOTP'])->name('send.otp');
-// Route::get('verify-OTP',function (){return view('auth.otp-verify');})->name('otp.verify');
-// Route::post('test',[OTPController::class,'test'])->name('test');
-// 
+Route::get('/profile',[ProfileController::class,'profile'])->name('profile');
+Route::get('/order',[OrderController::class,'create'])->name('create.order');
 
 Auth::routes();
 

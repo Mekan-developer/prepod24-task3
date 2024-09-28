@@ -8,4 +8,11 @@
     --text-color:#333333;
     --input-bg-color: #FFFFFF;
     --input-text-color:#000000;
+    --green:#a1c67a;
+}
+
+*{
+    font-family: "Gowun Batang", serif;
+    font-weight: 700;
+    font-style: normal;
 }

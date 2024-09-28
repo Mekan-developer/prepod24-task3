@@ -13,11 +13,11 @@
                         @csrf
 
                         <div class="mb-4">
-                            <x-form.input-label name="email" type="email" label="E-mail" placeholder="Электронная почта" required/>
+                            <x-form.input-label name="email" type="email" label="Электронная почта" placeholder="Электронная почта" required/>
                         </div>
 
                         <div class="mb-4">
-                            <x-form.input-label name="password" type="password" label="password" placeholder="Пароль" required/>
+                            <x-form.input-label name="password" type="password" label="Пароль" placeholder="Пароль" required/>
                         </div>
 
                         <div class="flex items-center mb-4">
