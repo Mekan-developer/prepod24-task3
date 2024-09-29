@@ -14,7 +14,7 @@
                         @csrf
                         <input type="hidden" name="token" value="{{ $token }}">
                         <div class="mb-4">
-                            <label for="email" class="block mb-1 font-medium text-[var(--text-color)] text-md">{{ __('Email Address') }}</label>
+                            <label for="email" class="block mb-1 font-medium text-[var(--text-color)] text-md">Электронная почта</label>
                             <input id="email" type="email" class="block w-full p-2 mt-1 border-b-2 border-gray-400 rounded-sm shadow-sm bg-[var(--input-bg-color)] focus:outline-none" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
                             @error('email')
                                 <span class="text-sm text-red-500" role="alert">
@@ -24,11 +24,11 @@
                         </div>
 
                         <div class="mb-4">
-                            <x-form.input-label type="password" name="password" label="password" placeholder="Придумайте  пароль" required/>
+                            <x-form.input-label type="password" name="password" label="Пароль" placeholder="Придумайте  пароль" required/>
                         </div>
 
                         <div class="mb-4">
-                            <x-form.input-label type="password" name="password_confirmation" placeholder="Повторите пароль" required/>
+                            <x-form.input-label type="password" name="password_confirmation" label="Повтор пароля" placeholder="Повторите пароль" required/>
                         </div>
 
                         <div class="flex items-center justify-between w-full mb-0">

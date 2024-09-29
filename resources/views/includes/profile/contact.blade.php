@@ -5,9 +5,8 @@
     
     <div class="flex flex-col gap-2 justify-start items-start w-[380px]">
 
-        <div class="flex flex-col w-full">
-            
-            <x-form.input-label type="email" name="name" label="Электронная почта*" placeholder="Email" value="{{$maskedEmail}}" class="p-[6px] mt-1 border border-gray-400 text-gray-700" labelBold="font-800"/>
+        <div class="flex flex-col w-full">            
+            <x-form.input-label type="email" name="email" label="Электронная почта*" placeholder="Email" value="{{$maskedEmail}}" class="p-[6px] mt-1 border border-gray-400 text-gray-700" labelBold="font-800"/>
         </div>
 
         <div class="w-full">

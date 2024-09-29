@@ -20,7 +20,7 @@
                         @csrf
 
                         <div class="mb-4">
-                            <x-form.input-label name="email" type="email" label="email" placeholder="Введите e-mail" required/>
+                            <x-form.input-label name="email" type="email" label="Электронная почта" placeholder="Введите e-mail" required/>
                         </div>
                         <div class="flex items-center justify-between mb-0">
                             <x-form.btn-submit title="Востановит пароль"/>

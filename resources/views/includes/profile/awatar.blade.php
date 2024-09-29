@@ -2,7 +2,7 @@
     <div class="w-[200px] h-full px-4 font-[400]">
         Аватар
     </div>
-    <div class="flex-1 flex gap-10 justify-start items-center">
+    <div class="flex items-center justify-start flex-1 gap-10">
 
         <div class="flex flex-col justify-between">
             <x-heroicon-s-user class="bg-[#242222d3] text-gray-50 w-[150px] aspect-square" />
@@ -11,12 +11,12 @@
             </div>
         </div>
 
-        <div class="bg-white flex p-16">
-            <label for="image" class="flex items-center founded-lg px-12 py-1 bg-[var(--green)] text-white cursor-pointer active:scale-[0.9]">
+        <div class="flex p-16 bg-white">
+            <label for="image" class="flex gap-4 items-center founded-lg px-12 py-1 bg-[var(--green)] text-white cursor-pointer active:scale-[0.9]">
                 <x-heroicon-s-arrow-down-tray class="w-[36px] aspect-square"/>
                 <span class=" text-nowrap">Загрузить фото</span>
             </label>
-            <input id="image" type="file" class="hidden">
-        </div>
+            <input id="image" type="file" accept="image/jpg, image/png, image/webp, image/jpeg, image/gif" wire:model.debounce.500ms='image' wire:change="uploadsImage">
+        </div> 
     </div>
 </div>
