@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserProfileController extends Controller
+class OrderController extends Controller
 {
-    
     public function index(){
         $userImage = auth()->user()->profile->image;
-        return view('pages.profile',[
+        return view('pages.order.new-order',[
             'userImage' => $userImage
         ]);
     }

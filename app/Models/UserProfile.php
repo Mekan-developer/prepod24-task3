@@ -17,4 +17,10 @@ class UserProfile extends Model
         'date_of_birth' => 'date',
         'user_id' => 'integer',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
 }

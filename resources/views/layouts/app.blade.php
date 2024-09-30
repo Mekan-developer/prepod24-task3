@@ -16,6 +16,7 @@
     @livewireStyles
 </head>
 <body class="h-[100vh] bg-[var(--bg-color)]">
+    <x-success-message/>
     <div id="app" class="h-full ">
         @include('includes.nav-bar')
 

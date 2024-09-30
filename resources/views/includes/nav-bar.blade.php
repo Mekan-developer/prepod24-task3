@@ -1,9 +1,11 @@
-<nav class="bg-white shadow" >
+<nav class="relative bg-white shadow" >
+    
     <div class="container px-4 mx-auto">
         <div class="flex items-center justify-between py-4">
-            <a class="text-lg font-bold" href="{{ url('/') }}">
+            <a class="text-lg font-bold" href="{{ url('/') }}" wire:navigate>
                 LOGO
             </a>
+            
             <div class="flex items-center w-full">
                 <ul class="flex justify-center flex-1 space-x-16 mr-16 text-[#777] text-[14px] font-semibold">
                     <li class="hover:text-black">
@@ -37,7 +39,14 @@
                         <div class="py-[10px]">
                             <a  class="text-gray-700 cursor-pointer hover:text-blue-500">
                                 <span  class="flex gap-1">
-                                    <x-heroicon-s-user class="bg-black text-gray-50 w-[32px] aspect-square" /> <x-heroicon-o-chevron-right class="rotate-90  w-[24px]" />
+                                    <div class=" w-[32px] aspect-square">
+                                        @if($userImage)
+                                            <img class="bg-contain w-full h-full" src="{{asset('storage/userImage/'.$userImage)}}" alt="">
+                                        @else
+                                            <x-heroicon-s-user class="bg-black text-gray-50 w-[32px] aspect-square" />
+                                        @endif
+                                    </div>
+                                     <x-heroicon-o-chevron-right class="rotate-90  w-[24px]" />
                                 </span>
                             </a>
                         </div>

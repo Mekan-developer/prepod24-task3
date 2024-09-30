@@ -65,10 +65,10 @@ return [
             // 'throw' => false,
         ],
 
-        's3-userImage' => [
+        'userImage' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public/userImage'),
+            'url' => env('APP_URL') . '/storage/userImage',
             'visibility' => 'public',
             'throw' => false,
         ],

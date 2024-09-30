@@ -7,7 +7,7 @@ use Livewire\Component;
 class NavBar extends Component
 {
 
-    public $currentComponent = 'home'; // Default Livewire component to load
+    public $currentComponent = 'home', $userImage; // Default Livewire component to load
 
     public function loadComponent($component)
     {
@@ -15,12 +15,12 @@ class NavBar extends Component
         
     }
 
+    public function mount(){
+        $this->userImage = auth()->user()->profile->image;
+    }
+
     public function render()
     {
         return view('livewire.nav-bar');
-    }
-
-    public function testGet(){
-        dd('terr');
     }
 }

@@ -3,6 +3,8 @@
 
 // use App\Http\Controllers\OrderController;
 // use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserProfileController;
 use App\Livewire\NavBar;
 use App\Livewire\Order\NewOrder;
 use App\Livewire\Profile;
@@ -12,9 +14,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/profile',function(){return view('pages.profile');})->name('profile');
+Route::get('/profile',[UserProfileController::class,'index'])->name('profile')->middleware('auth');
 
-Route::get('/order',function(){return view('pages.order.new-order');})->name('create.order');
+Route::get('/order',[OrderController::class,'index'])->name('create.order')->middleware('auth');
 
 
 Auth::routes();

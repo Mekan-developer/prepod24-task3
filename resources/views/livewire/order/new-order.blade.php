@@ -11,46 +11,63 @@
                 <div class="flex flex-col gap-6 mt-10">
 
                     <div>
-                        <x-form.input-label name="topic_name" label="Напишите тему вашей работы *" class="p-1 border-2 border-gray-300" labelBold="font-[400]" placeholder="Напишите тему вашей работы" />
+                        <x-form.input-label name="work_topic" wire:model='work_topic' label="Напишите тему вашей работы *" class="p-1 border-2 border-gray-300" labelBold="font-[400]" placeholder="Напишите тему вашей работы" />
                     </div>
 
                     <div class="font-[400]">
                         <label for="work_type" class="font-[400]">Выберите тип работы *</label><br/>
-                    <select name="work_type" id="work_type" class="w-full h-[36px] border-2 border-gray-300">
-                        <option value="0" default>Укажите тип работы</option>
-                        <option value="">ASA</option>
-                        <option value="">ASA</option>
-                        <option value="">ASA</option>
-                        <option value="">ASA</option>
-                    </select>
-                    </div>
-
-                    <div>
-                        <label for="" class="text-gray-700 font-[400]">Выберите предмет *</label><br/>
-                        <select id="comboBox" onchange="updateInput(this)" class="w-full h-[36px] border-2 border-gray-300">
-                            <option value="">Select an option...</option>
-                            <option value="Option 1">Option 1</option>
-                            <option value="Option 2">Option 2</option>
-                            <option value="Option 3">Option 3</option>
-                            <option value="custom">Custom Input</option>
+                        <select name="work_type" wire:model='work_type' id="work_type" class="w-full h-[36px] border-2 border-gray-300 ">
+                            <option value="0" default >Укажите тип работы</option>
+                            @foreach ($work_types as $item)
+                                <option value="{{$item->title}}" class="font-[400]">{{$item->title}}</option>
+                            @endforeach
                         </select>
-                        
-                        <input type="text" id="textInput" placeholder="Or type something..." oninput="updateSelect(this)" style="display:none;" class="block w-full p-1 border-2 border-gray-300 mt-1 rounded-sm shadow-sm bg-[var(--input-bg-color)] focus:outline-none'"/>
+                        @error('work_type')
+                            <span class="text-sm text-red-500" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+                    <div class="font-[400]">
+                        <label for="comboBox" class="text-gray-700 font-[400]">Выберите предмет *</label><br/>
+                        <select id="comboBox" wire:model='subject' onchange="updateInput(this)" class="w-full h-[36px] border-2 border-gray-300">
+                            <option value="">Select an option...</option>
+                            @foreach ($subjects as $item)
+                                <option value="{{$item->title}}" class="font-[400]">{{$item->title}}</option>
+                            @endforeach
+                            <option value="custom" class="font-[400]">Пользовательский ввод</option>
+                        </select>
+                        <input type="text" wire:model='subject' id="textInput" placeholder="Or type something..." oninput="updateSelect(this)" style="display:none;" class="block w-full p-1 border-2 border-gray-300 mt-1 rounded-sm shadow-sm bg-[var(--input-bg-color)] focus:outline-none'"/>
+                        @error('subject')
+                            <span class="text-sm text-red-500" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div>
-                        <label for="explanations" class="text-gray-700 font-[400]">Пояснения и комментарии к заказу</label>
-
-                        <textarea name="explanations" id="explanations" rows="4" class="w-full p-[6px] border-2 border-gray-300 focus:outline-none rounded-md"></textarea>
+                        <label for="explanation" class="text-gray-700 font-[400]">Пояснения и комментарии к заказу</label>
+                        <textarea name="explanation" wire:model='explanation' id="explanation" rows="4" class="w-full p-[6px] border-2 border-gray-300 focus:outline-none rounded-md"></textarea>
+                        @error('explanation')
+                            <span class="text-sm text-red-500" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="flex flex-row w-full gap-4 "> 
                         <div class="w-full">
                             <label for="date">Срок сдачи до *</label>
-                            <input type="date" id="date" name="last_date" min="{{$todayFormatted}}" class="block w-full p-2 border-b-2 border-gray-400 rounded-sm shadow-sm bg-[var(--input-bg-color)] text-gray-700 focus:outline-none focus:ring-2">
+                            <input type="date" id="date" name="due_date" wire:model='due_date' min="{{$todayFormatted}}" class="block w-full p-2 border-b-2 border-gray-400 rounded-sm shadow-sm bg-[var(--input-bg-color)] text-gray-700 focus:outline-none focus:ring-2">
+                            @error('due_date')
+                                <span class="text-sm text-red-500" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="w-full">   
-                            <x-form.input-label type="number" name="order_price" label="Бюджет (в рублях)" placeholder="Бюджет (в рублях)" class="p-[6px] mt-1 border border-gray-400 text-gray-700" labelBold="font-800"/>
+                            <x-form.input-label type="number" wire:model='budget' name="order_price" label="Бюджет (в рублях)" placeholder="Бюджет (в рублях)" class="p-[6px] mt-1 border-2 border-gray-400 text-gray-700 focus:outline-none" labelBold="font-800"/>
                         </div>
                         
                     </div>
@@ -65,16 +82,22 @@
                                 Файл не выбран
                             </span>
                         </label>
-                        <input id=file type="file" class="hidden">
+                        <input id=file type="file" class="hidden" wire:model='file'>
+                        @error('file')
+                            <span class="text-sm text-red-500" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         <span class="block mt-1 text-gray-400">Максимальный размер загружаемого файла 31 Мб</span>
                         <span class="block mt-1 text-gray-400">* Обязательные поля формы</span>
                     </div>
-                    <x-form.btn-submit title="ДАЛЕЕ" class="bg-[var(--green-color)]" />
+                    <x-form.btn-submit title="ДАЛЕЕ" class="bg-[var(--green-color)]" wire:click='orderSave'/>
                 </div>
             </div>
         </div>
         @include('includes.create-task.order-stages')
     </div>
+    <x-loading loading="orderSave"/>
 
     <script>
         function updateInput(select) {

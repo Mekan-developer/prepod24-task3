@@ -20,5 +20,8 @@
             @yield('content')
         </main>
     </div>
+
+    <x-success-message/> 
+    <x-error-message/>
 </body>
 </html>

@@ -44,4 +44,41 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+  
+
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            // Create UserProfile when a new User is created
+            $user->createUserProfile();
+        });
+    }
+
+    public function createUserProfile()
+    {
+        // Create a profile for the user with default data
+        $this->profile()->create([
+            // Set any default data for the profile fields here
+            'user_id' => $this->id,  // Assuming there's a foreign key
+            'created_at' => now(),
+            'updated_at' => now(),
+            // Add other fields here as necessary
+        ]);
+    }
+
+    public function profile()
+    {
+        // Define the relationship between User and UserProfile
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public function order()
+    {
+        // Define the relationship between User and UserProfile
+        return $this->hasMany(Order::class);
+    }
+
+
 }

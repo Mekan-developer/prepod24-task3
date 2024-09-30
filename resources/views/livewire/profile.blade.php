@@ -8,5 +8,8 @@
                @include('includes.profile.password-change')
           </div>
      </div>
-     <button wire:click='testGet'>test20</button>
+
+     <x-loading loading="information"/>
+     <x-loading loading="contact"/>
+     <x-loading loading="changePassword"/>
 </div>
