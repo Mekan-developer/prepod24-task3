@@ -1,6 +1,6 @@
 <nav class="relative bg-white shadow" >
     
-    <div class="container px-4 mx-auto">
+    <div class="w-[1200px] px-4 mx-auto">
         <div class="flex items-center justify-between py-4">
             <a class="text-lg font-bold" href="{{ url('/') }}" wire:navigate>
                 LOGO
@@ -8,8 +8,8 @@
             
             <div class="flex items-center w-full">
                 <ul class="flex justify-center flex-1 space-x-16 mr-16 text-[#777] text-[14px] font-semibold">
-                    <li class="hover:text-black">
-                        <a href="" >Мои заказы</a>
+                    <li class="hover:text-black {{Request::routeIs('order.index') ? 'text-black' : ''}}">
+                        <a href="{{route('order.index')}}" wire:navigate>Мои заказы</a>
                     </li>
                     <li class="hover:text-black">
                         <a href="" >Авторы</a>
@@ -20,7 +20,7 @@
                 </ul>
                 <ul class="flex items-center ml-auto space-x-10">
                     <li class="flex items-center justify-center">
-                        <a href="{{route('create.order')}}" wire:navigate class="border-2 border-[#a1c67a] hover:bg-[#a1c67a] p-2 rounded-[4px] text-[#555] hover:text-white font-semibold">
+                        <a href="{{route('order.create')}}" wire:navigate class="border-2 border-[#a1c67a] hover:bg-[#a1c67a] p-2 rounded-[4px] text-[#555] hover:text-white font-semibold">
                                 Создать задание
                         </a>
                     </li>
@@ -40,7 +40,7 @@
                             <a  class="text-gray-700 cursor-pointer hover:text-blue-500">
                                 <span  class="flex gap-1">
                                     <div class=" w-[32px] aspect-square">
-                                        @if($userImage)
+                                        @if(isset($userImage))
                                             <img class="bg-contain w-full h-full" src="{{asset('storage/userImage/'.$userImage)}}" alt="">
                                         @else
                                             <x-heroicon-s-user class="bg-black text-gray-50 w-[32px] aspect-square" />

@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Task extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'work_topic', 'work_type', 'subject', 'explanation', 'due_date', 'budget', 'file_path', 'user_id'
+        'title', 'work_type', 'subject', 'description', 'deadline', 'price','status',
+        'start_date','comment_id','progress', 'file_path','performer_id', 'client_id'
     ];
 
     /**

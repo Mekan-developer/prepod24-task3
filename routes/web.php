@@ -16,7 +16,8 @@ Route::get('/', function () {
 
 Route::get('/profile',[UserProfileController::class,'index'])->name('profile')->middleware('auth');
 
-Route::get('/order',[OrderController::class,'index'])->name('create.order')->middleware('auth');
+Route::get('/order',[OrderController::class,'create'])->name('order.create')->middleware('auth');
+Route::get('/my-orders',[OrderController::class,'index'])->name('order.index')->middleware('auth');
 
 
 Auth::routes();

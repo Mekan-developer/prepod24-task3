@@ -23,9 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $userImage = auth()->user()->profile->image;
-        return view('home',[
-            'userImage' => $userImage
-        ]);
+        // $userImage = auth()->user()->profile->image;
+        return view('home');
     }
 }

@@ -74,10 +74,10 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class);
     }
 
-    public function order()
+    public function task()
     {
         // Define the relationship between User and UserProfile
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Task::class,'client_id','id');
     }
 
 

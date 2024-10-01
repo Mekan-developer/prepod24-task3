@@ -10,7 +10,8 @@ use Livewire\Component;
 class NewOrder extends Component
 {
     public $todayFormatted;
-    public $work_topic, $work_type, $subject, $explanation, $due_date, $budget, $file;
+    public $title, $work_type, $subject, $description, $deadline, $price, $file;
+    //for mount
     public $work_types,$subjects;
 
 
@@ -31,17 +32,26 @@ class NewOrder extends Component
 
         $validated = Validator::make(
             // Data to validate...
-            ['work_topic' => $this->work_topic, 'work_type' => $this->work_type, 'subject' => $this->subject,'due_date' => $this->due_date,],
+            [
+                'title' => $this->title, 'work_type' => $this->work_type, 'subject' => $this->subject,
+                'deadline' => $this->deadline, 'description' => $this->description, 'price' => $this->price, 
+            ],
             // Validation rules to apply...
             [
-                'work_topic' => 'required|string|min:3', 'work_type' => 'required|string|min:3', 'subject' => 'required|string|min:3', 'due_date' => 'required|date|after:today',
-                'explanation' => 'nullable|string|min:10', 'budget' => 'nullable|file|min:5120',
+                'title' => 'required|string|min:3', 'work_type' => 'required|string|min:3', 'subject' => 'required|string|min:3', 
+                'deadline' => 'required|date|after:today','description' => 'nullable|string|min:6', 'price' => 'nullable|integer|min:2',
             ],
             // Custom validation messages...
-            ['required' => 'Поле является обязательным.'],
+            [
+                'required' => 'Поле является обязательным.', 'deadline' => 'Поле срока выполнения должно быть датой после сегодняшнего дня.'
+            ],
          )->validate();
 
-        auth()->user()->order()->create($validated);
-        $this->reset('work_topic','work_type','subject','due_date');
+        $validated['client_id'] = auth()->user()->id;
+
+        auth()->user()->task()->create($validated);
+        session()->flash('success', 'order created successfully!');
+        $this->reset('title','work_type','subject','deadline', 'description', 'price');
+        redirect()->route('order.index');
     }
 }

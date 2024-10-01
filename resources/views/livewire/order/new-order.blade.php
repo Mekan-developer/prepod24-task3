@@ -1,4 +1,5 @@
-<div>
+<div >
+    <x-success-message/>
     <div class="flex gap-4 flex-row h-full w-[920px] mx-auto">
         <div class="flex-1 h-full p-4 bg-white rounded-sm">
             <div class="flex flex-col justify-start bg-[var(--bg-color)] p-6 ">
@@ -11,7 +12,7 @@
                 <div class="flex flex-col gap-6 mt-10">
 
                     <div>
-                        <x-form.input-label name="work_topic" wire:model='work_topic' label="Напишите тему вашей работы *" class="p-1 border-2 border-gray-300" labelBold="font-[400]" placeholder="Напишите тему вашей работы" />
+                        <x-form.input-label name="title" wire:model='title' label="Напишите тему вашей работы *" class="p-1 border-2 border-gray-300 text-lg" labelBold="font-[400]" placeholder="Напишите тему вашей работы" />
                     </div>
 
                     <div class="font-[400]">
@@ -47,9 +48,9 @@
                     </div>
 
                     <div>
-                        <label for="explanation" class="text-gray-700 font-[400]">Пояснения и комментарии к заказу</label>
-                        <textarea name="explanation" wire:model='explanation' id="explanation" rows="4" class="w-full p-[6px] border-2 border-gray-300 focus:outline-none rounded-md"></textarea>
-                        @error('explanation')
+                        <label for="description" class="text-gray-700 font-[400]">Пояснения и комментарии к заказу</label>
+                        <textarea wire:model='description' id="description" rows="4" class="w-full p-[6px] border-2 border-gray-300 focus:outline-none rounded-md"></textarea>
+                        @error('description')
                             <span class="text-sm text-red-500" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -59,15 +60,15 @@
                     <div class="flex flex-row w-full gap-4 "> 
                         <div class="w-full">
                             <label for="date">Срок сдачи до *</label>
-                            <input type="date" id="date" name="due_date" wire:model='due_date' min="{{$todayFormatted}}" class="block w-full p-2 border-b-2 border-gray-400 rounded-sm shadow-sm bg-[var(--input-bg-color)] text-gray-700 focus:outline-none focus:ring-2">
-                            @error('due_date')
+                            <input type="date" id="date" name="deadline" wire:model='deadline' min="{{$todayFormatted}}" class="block w-full p-2 border-b-2 border-gray-400 rounded-sm shadow-sm bg-[var(--input-bg-color)] text-gray-700 focus:outline-none focus:ring-2">
+                            @error('deadline')
                                 <span class="text-sm text-red-500" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="w-full">   
-                            <x-form.input-label type="number" wire:model='budget' name="order_price" label="Бюджет (в рублях)" placeholder="Бюджет (в рублях)" class="p-[6px] mt-1 border-2 border-gray-400 text-gray-700 focus:outline-none" labelBold="font-800"/>
+                            <x-form.input-label type="number" wire:model='price' name="order_price" label="Бюджет (в рублях)" placeholder="Бюджет (в рублях)" class="p-[6px] mt-1 border-2 border-gray-400 text-gray-700 focus:outline-none" labelBold="font-800"/>
                         </div>
                         
                     </div>

@@ -16,15 +16,12 @@
     @livewireStyles
 </head>
 <body class="h-[100vh] bg-[var(--bg-color)]">
-    <x-success-message/>
     <div id="app" class="h-full ">
         @include('includes.nav-bar')
-
-        <main class="py-4 mt-12">
+        <main class="py-4 mt-12 w-[1100px] mx-auto">
             @yield('content')
         </main>
     </div>
-
     @livewireScripts
 </body>
 </html>
