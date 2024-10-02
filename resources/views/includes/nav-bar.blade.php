@@ -25,6 +25,16 @@
                         </a>
                     </li>
                     <li class="relative mr-4 cursor-pointer group">
+                        <x-heroicon-o-envelope class="w-[35px]" />
+                        <div class="absolute -top-[4px] -right-1 text-white bg-red-600 border-2 border-white rounded-full text-[12px] w-[22px] text-center aspect-square"> 1</div>
+
+                        <div class="hidden absolute top-[calc(100%+26px)] right-[calc(100%-45px)] group-hover:block ">
+                            <span class="px-4 py-3 border border-blue-300 rounded-sm text-nowrap">
+                                У вас нет новых уведомлений
+                            </span>
+                        </div>
+                    </li>
+                    <li class="relative mr-4 cursor-pointer group">
                         <x-heroicon-o-bell-snooze class="w-[35px]" />
                         <div class="absolute -top-[4px] -right-1 text-white bg-red-600 border-2 border-white rounded-full text-[12px] w-[22px] text-center aspect-square"> 1</div>
 

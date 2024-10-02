@@ -73,7 +73,6 @@ class Profile extends Component
 
             // Fetch the user profile and update the image field
             $userProfile = UserProfile::where('user_id', auth()->id())->first();
-            
             if ($userProfile) {
                 if ($userProfile->image){
                         if (Storage::disk('userImage')->exists($userProfile->image)) {
