@@ -28,9 +28,16 @@ class Task extends Model
      /**
      * Get the user that owns the order.
      */
-    public function user()
+    public function getClient()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'client_id','id');
     }
+
+    public function getPerformer()
+    {
+        return $this->belongsTo(User::class,'performer_id','id');
+    }
+
+    
 
 }

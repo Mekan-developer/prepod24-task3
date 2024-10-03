@@ -2,9 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Bid;
 use Livewire\Component;
 
-class NavBar extends Component
+class delete_NavBar extends Component
 {
 
     public $currentComponent = 'home', $userImage; // Default Livewire component to load
@@ -21,6 +22,10 @@ class NavBar extends Component
 
     public function render()
     {
-        return view('livewire.nav-bar');
+        $new_bids_count = Bid::where('showed_client',0)->count();
+
+        return view('livewire.nav-bar',[
+            'new_bids_count' => $$new_bids_count
+        ]);
     }
 }

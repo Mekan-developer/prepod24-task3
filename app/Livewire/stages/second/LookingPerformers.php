@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Order;
+namespace App\Livewire\stages\second;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -10,17 +10,19 @@ class LookingPerformers extends Component
 {
     use WithFileUploads;
     public $fileChooseValidation = 'Прикрепить файл';
-    public $task,$sendFile;
+    public $task,$bids,$sendFile;
 
-    public function mount($task)
+    public function mount($task,$bids)
     {
         sleep(0.5);
+        $this->bids = $bids;
         $this->task = $task;
     }
 
     public function render()
     {
-        return view('livewire.order.looking-performers');
+
+        return view('livewire.stages.second.looking-performers');
     }
 
     public function updatedSendFile()

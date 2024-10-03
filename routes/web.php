@@ -10,7 +10,10 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile',[UserProfileController::class,'index'])->name('profile');
     Route::get('/order',[TaskController::class,'create'])->name('order.create');
+
     Route::get('/my-orders',[TaskController::class,'index'])->name('order.index');
+
+    
     Route::get('/looking-performers/{task}',[TaskController::class,'lookingPerformer'])->name('order.looking');
 });
 

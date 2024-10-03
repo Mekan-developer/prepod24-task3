@@ -17,6 +17,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -76,7 +77,6 @@ class User extends Authenticatable
 
     public function task()
     {
-        // Define the relationship between User and UserProfile
         return $this->hasMany(Task::class,'client_id','id');
     }
 

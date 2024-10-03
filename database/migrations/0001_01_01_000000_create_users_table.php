@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedInteger('completed_tasks')->default(0); // Количество выполненных работ
+            $table->unsignedInteger('positive_ratings')->default(0); // Количество положительных оценок
+            $table->unsignedInteger('negative_ratings')->default(0); // Количество отрицательных оценок
             $table->rememberToken();
             $table->timestamps();
         });

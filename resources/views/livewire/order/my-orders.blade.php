@@ -1,41 +1,21 @@
 <div>
     <div class="container mx-auto">
-        <h1 class="text-[22px] p-1 mb-4">Все заказы</h1>
-            
-        <div class="flex flex-col gap-6">
-            @foreach ($user_tasks as $key => $order)
-            <div class="flex flex-col border">
-                <div class="flex flex-col w-full bg-white p-[10px]">
-                    <h1 class="text-[#4786C8]">
-                        <a href="{{ route('order.looking',['task' => $order->id]) }}">
-                            {{$order->title}}
-                        </a></h1>  
-                    <p class="font-[400] ">{{ $order->work_type }}, {{ $order->subject }}</p>
+        @if($new_bids->count() !=0 )
+            @foreach ($new_bids as $new_bid)
+                <div class="bg-white rounded-md shadow-md my-4">
+                    <x-order.notification :new_bid="$new_bid" :new_bids_count="$new_bids->count()" />
                 </div>
-                <div class=" flex flex-row gap-10 bg-[#e2e2e2] w-full p-[10px] text-[16px] font-[400]">
-                    <div class="flex flex-row">
-                        #{{$order->id}}
-                    </div>
-
-                    <div class="flex flex-row gap-4 border-l-2 border-[#F5F5F5] pl-2">
-                        <span>
-                            <x-heroicon-o-clipboard-document-list class="w-6"/>
-                        </span>
-                        @if($order->status == 'Looking for performer')
-                            <p> Поиск автора</p>
-                        @endif
-                    </div>
-
-                    <div class="flex flex-row gap-4 border-l-2 border-[#F5F5F5] pl-2">
-                        <span>
-                            <x-heroicon-o-clock class="w-6 bg-[var(--green)] rounded-full text-white"/>
-                        </span>
-                        <p>Сдать до: {{ $order->deadline }}</p>
-                    </div>
-                    
-                </div>
-            </div>
             @endforeach
+        @endif
+
+        <div>
+            <h1 class="text-[22px] p-1 mb-4">Все заказы</h1> 
+            <div class="flex flex-col gap-6">
+                @foreach ($user_tasks as $key => $order)
+                    <x-order.order :order="$order" wire:key="{{$order->id}}" />
+                @endforeach
+            </div>
         </div>
+
     </div>
 </div>

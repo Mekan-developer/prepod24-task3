@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Order;
+namespace App\Livewire\stages\first;
 
 use App\Models\Subject;
 use App\Models\WorkType;
@@ -35,7 +35,7 @@ class NewOrder extends Component
     public function render()
     {
         sleep(0.5);
-        return view('livewire.order.new-order');
+        return view('livewire.stages.first.new-order');
     }
 
     public function updatedTaskFile(){
