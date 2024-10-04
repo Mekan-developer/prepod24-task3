@@ -18,9 +18,9 @@ class UserProfile extends Model
         'user_id' => 'integer',
     ];
 
-    public function user()
+    public function getUser()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id','id');
     }
     
 }

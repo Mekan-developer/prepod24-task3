@@ -6,9 +6,9 @@
         <span class="flex-1 pl-4 font-[400]  @if(isset($edit)) text-[#2A78C1] @endif" 
             @if(isset($edit)) wire:click='redirect()' @endif>
             @if(isset($edit))
-                <a href="{{ route('order.create',['task' => $task_id]) }}">Редактирование</a> 
+                <a href="{{ route('order.edit',['task' => $task_id]) }}" wire:navigate>Редактирование</a> 
             @else 
-                <a href="{{ route('order.create') }}">Редактирование</a> 
+                <a href="{{ route('order.create') }}" >Редактирование</a> 
             @endif
         </span>
     </div>

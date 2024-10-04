@@ -4,8 +4,10 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
 class User extends Authenticatable
 {
@@ -21,8 +23,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'last_active_at',
+        'completed_tasks',
+        'positive_ratings',
+        'negative_ratings'
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -46,7 +51,16 @@ class User extends Authenticatable
         ];
     }
 
-  
+    public function getProfile(){
+        return $this->HasOne(UserProfile::class,'user_id','id');
+    }
+
+     // Create an accessor for 'is_online' property
+    public function getIsOnlineAttribute()
+    {
+        $lastActiveTime = Carbon::parse($this->last_active_at);
+        return $lastActiveTime && $lastActiveTime->gt(now()->subMinutes(5));// last 5 minut online or no
+    }
 
 
     protected static function booted()

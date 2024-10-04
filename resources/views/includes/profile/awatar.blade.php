@@ -6,7 +6,7 @@
 
         <div class="flex flex-col justify-between">
             @if($userImage)
-                <img class="bg-[#242222d3] text-gray-50 w-[150px] " src="{{asset('storage/userImage/'.$userImage)}}" alt="">
+                <div class="bg-center bg-cover w-[150px] h-[150px]" style="background-image: url('{{ asset('storage/userImage/'.$userImage) }}');"></div>
             @else
                 <x-heroicon-s-user class="bg-[#242222d3] text-gray-50 w-[150px] aspect-square" />
             @endif

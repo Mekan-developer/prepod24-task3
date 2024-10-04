@@ -6,11 +6,29 @@
             <x-heroicon-o-x-mark class="absolute top-2 right-2 w-[22px] text-gray-500 cursor-pointer" />
             <div class="flex justify-between px-8">
                 <div class="flex flex-row gap-4">
-                    <div class="w-[80px] h-[80px] bg-red-600">xzc</div>
+                    <div class="w-[80px] h-[80px]">
+                        @if (isset($bid->getPerformer->getProfile->image))
+                            <div class="bg-center bg-cover w-[80px] h-[80px]" style="background-image: url('{{ asset('storage/userImage/'.$bid->getPerformer->getProfile->image) }}');"></div>
+                        @else 
+                            <x-heroicon-s-user class="bg-black text-gray-50 w-[80px] aspect-square" />
+                        @endif
+                    </div>
                     <div class="flex flex-col">
-                        <h4>name user</h4>
-                        <span class="text-[12px] text-gray-400">02.10.2024 15:39</span>
-                        <span class="text-[12px] text-gray-300">Не в сети</span>
+                        <h4>{{$bid->getPerformer->name}}</h4>
+                        <span class="text-[12px] text-gray-400 font-[600]">{{$bid->getPerformer->created_at->format('Y-m-d H:i');}}</span>
+                        @if($bid->getPerformer->is_online)
+                        <div class="flex items-center gap-1">
+                            <div class="w-[12px] h-[12px] rounded-full border-2 border-green-400"></div>
+                            <span class="text-[12px] text-gray-300">В сети</span>
+                        </div>
+                            
+                        @else 
+                            <div class="flex items-center gap-1">
+                                <div class="w-[12px] h-[12px] rounded-full border-2 border-red-400"></div>
+                                <span class="text-[12px] text-gray-300">Не в сети</span>
+                            </div>
+                           
+                        @endif
                     </div>
                 </div>
                 <div>

@@ -19,7 +19,7 @@ class Bid extends Model
     ];
 
 
-    public function performer()
+    public function getPerformer()
     {
         return $this->belongsTo(User::class, 'performer_id', 'id');
     }

@@ -22,6 +22,11 @@
                     <li class="hover:text-black">
                         <a href="" >Готовые работы</a>
                     </li>
+                    <li class="hover:text-black">
+                        <a href="{{route('tasks.showTasks')}}" >
+                        Все задания</a>
+                    </li>
+
                 </ul>
                 <ul class="flex items-center ml-auto space-x-10">
                     <li class="flex items-center justify-center">
@@ -74,7 +79,7 @@
                                 <span  class="flex gap-1">
                                     <div class=" w-[32px] aspect-square">
                                         @if(isset($userImage))
-                                            <img class="bg-contain w-full h-full" src="{{asset('storage/userImage/'.$userImage)}}" alt="">
+                                            <div class="bg-center bg-cover w-[32px] h-[32px]" style="background-image: url('{{ asset('storage/userImage/'.$userImage) }}');"></div>
                                         @else
                                             <x-heroicon-s-user class="bg-black text-gray-50 w-[32px] aspect-square" />
                                         @endif

@@ -38,6 +38,9 @@ class Task extends Model
         return $this->belongsTo(User::class,'performer_id','id');
     }
 
-    
+    public function bids()
+    {
+        return $this->hasMany(Bid::class,'task_id','id');
+    }
 
 }

@@ -1,6 +1,5 @@
 <div >
     <x-success-message/>
-    {{-- {{dd($bids)}} --}}
     <div class="flex gap-4 flex-row h-full w-[920px] mx-auto">
         <div class="w-full">
             <div class="text-[18px] my-[20px] py-1">
