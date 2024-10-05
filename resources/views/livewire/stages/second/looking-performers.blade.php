@@ -9,10 +9,9 @@
             <div class="flex gap-4 flex-col h-full w-[920px] mx-auto">
                 <p class="text-[24px] my-[20px]">Предложения от исполнителей ({{$bids->count()}})</p>
                 @foreach ($bids as $bid)
-                    <x-stages.second.offers :bid='$bid' wire:key='$bid->id'/>
+                    <x-stages.second.offers :bid='$bid' :visibleDivId='$visibleDivId' wire:key='$bid->id'/>
                 @endforeach
             </div>
-            
         </div>
 
 

@@ -18,7 +18,7 @@
         </span>
         
     </div>
-    <div class="p-4 flex justify-between border-t-2 border-gray-200 duration-1000 delay-50 hover:bg-gray-200 group text-[16px]">
+    <div class="p-4 flex justify-between border-t-2 border-gray-200 duration-1000 delay-100 hover:bg-gray-200 group text-[16px]">
         <div class="flex items-center justify-center gap-4 ">
             <span><img src="{{asset('icon/tick.png')}}" alt="tick" class="w-[40px]"></span>
             <p class="flex justify-center items-center">Добавлена ставка в вашем заказе.</p>

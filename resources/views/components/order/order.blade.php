@@ -6,7 +6,7 @@
     <div class="flex flex-col border rounded-md shadow-md overflow-hidden">
         <div class="flex flex-col w-full bg-white p-[10px]">
             <h1 class="text-[#4786C8]">
-                <a href="{{ route('order.looking',['task' => $order->id]) }}">
+                <a href="{{ route('order.looking',['task' => $order->id]) }}" wire:navigate>
                     {{$order->title}}
                 </a></h1>  
             <p class="font-[400] ">{{ $order->work_type }}, {{ $order->subject }}</p>

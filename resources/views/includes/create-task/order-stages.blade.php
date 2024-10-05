@@ -3,8 +3,7 @@
         <span class="@if($status == "default") border-none bg-[var(--green)] text-white @endif flex items-center justify-center border border-gray-500 text-black w-[26px] text-[14px] leading-[26px] text-center aspect-square rounded-full">
             @if(isset($edit))<x-heroicon-o-pencil class=" w-[16px] text-[#2A78C1]"/>@else 1 @endif
         </span>
-        <span class="flex-1 pl-4 font-[400]  @if(isset($edit)) text-[#2A78C1] @endif" 
-            @if(isset($edit)) wire:click='redirect()' @endif>
+        <span class="flex-1 pl-4 font-[400]  @if(isset($edit)) text-[#2A78C1] @endif">
             @if(isset($edit))
                 <a href="{{ route('order.edit',['task' => $task_id]) }}" wire:navigate>Редактирование</a> 
             @else 
