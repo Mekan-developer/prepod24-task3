@@ -29,7 +29,7 @@ class BidSeeder extends Seeder
             ],
             3 => [
                 'task_id' => 1,
-                'performer_id' => 1, 
+                'performer_id' => 3, 
                 'message' => "give me thisthis project", 
                 'bid_amount' => '40',
             ],

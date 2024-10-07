@@ -34,13 +34,13 @@ class Index extends Component
         // }
 
         // Определяем, кто является получателем
-        $receiverId = (Auth::user()->id === $task->client_id) ? $task->performer_id : $task->client_id;
+        // $receiverId = (Auth::user()->id === $task->client_id) ? $task->performer_id : $task->client_id;
 
         // Сохраняем сообщение
         $message = new Message();
         $message->task_id = $taskId;
         $message->sender_id = Auth::user()->id;
-        $message->receiver_id = $receiverId;
+        $message->receiver_id = $task->client_id;
         $message->message = $this->message;
         
         $message->save();
