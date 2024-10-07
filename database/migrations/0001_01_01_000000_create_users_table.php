@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role',['client','performer','admin'])->default('client');
             $table->timestamp('last_active_at')->nullable();
             $table->unsignedInteger('completed_tasks')->default(0); // Количество выполненных работ
             $table->unsignedInteger('positive_ratings')->default(0); // Количество положительных оценок

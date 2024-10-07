@@ -23,7 +23,7 @@
                         <a href="" >Готовые работы</a>
                     </li>
                     <li class="hover:text-black">
-                        <a href="{{route('tasks.showTasks')}}" >
+                        <a href="{{route('tasks.showTasks')}}" wire:navigate>
                         Все задания</a>
                     </li>
 

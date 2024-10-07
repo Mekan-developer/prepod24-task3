@@ -7,21 +7,34 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
-
-
     public function showTasks(){
          // Get all tasks that are "Looking for performer" and don't have an assigned performer yet
         $tasks = Task::where('status', 'Looking for performer')
         ->whereNull('performer_id')->where('client_id','!=', auth()->user()->id)
         ->with('getClient') // Assuming you have a relationship to get the client
-        ->get();
+        ->paginate(10);
     
-        return view('pages.stages.second.all-tasks', compact('tasks'));
+        return view('pages.performer.all-tasks', compact('tasks'));
     }
 
+    public function show($id)
+    {
+        $task = Task::findOrFail($id);
 
+        // Проверяем статус задания
+        if ($task->status !== 'Looking for performer') {
+            return redirect()->route('tasks.showTasks')->with('error', 'Это задание недоступно.');
+        }
 
+        $performer_id = auth()->user()->id;
+        $bid = Bid::where('task_id', $id)->where('performer_id', $performer_id)->first();
+        if(is_null($bid)){
+            return view('pages.performer.show', compact('task'));
+        }
 
+        return redirect()->route('messages.index',['taskId' => $id,'bid'=> $bid]);
+        
+    }
 
 
     public function edit(Task $task){
@@ -30,7 +43,6 @@ class TaskController extends Controller
             'task' =>$user_task
         ]);
     }
-
 
     public function index(){
         $userImage = auth()->user()->profile->image;

@@ -10,7 +10,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    { 
         Schema::create('bids', function (Blueprint $table) {
             $table->id(); // Уникальный идентификатор заявки
             $table->unsignedBigInteger('task_id'); // ID задания
