@@ -2,6 +2,7 @@
 
 namespace App\Livewire\stages\second;
 
+use App\Livewire\Pages\Messages\Index;
 use App\Models\Message;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
@@ -33,23 +34,13 @@ class LookingPerformers extends Component
     public function toggleMessageDiv($id){
         if($this->visibleDivId == $id){
             $this->visibleDivId = null;
-            $sms_performer_id = null;
-            $sms_client_id = null;
             $this->messages = null;
         }else{
             $this->performer_id = $id;
-            $sms_performer_id = $id;
-            $sms_client_id = $this->task->client_id;
             $this->visibleDivId = $id;
-            $this->messages = Message::where('task_id', $this->task->id)
-                ->where(function ($query) use ($sms_performer_id, $sms_client_id) {
-                    $query->where('sender_id', $sms_performer_id)
-                        ->where('receiver_id', $sms_client_id);
-                })
-                ->orWhere(function ($query) use ($sms_performer_id, $sms_client_id) {
-                    $query->where('sender_id', $sms_client_id)
-                        ->where('receiver_id', $sms_performer_id);
-                })->get();
+            
+            $this->getChatMessages($id,$this->task->client_id);
+            $this->dispatch('scrollDown');
         }
     }
     public function updatedSendFile()
@@ -63,13 +54,6 @@ class LookingPerformers extends Component
     }
 
     public function storeChat($taskId){
-        
-        // Получаем задание
-        // $task = Task::findOrFail($taskId);
-
-        // Определяем, кто является получателем
-        // $receiverId = (Auth::user()->id === $task->client_id) ? $this->performer_id : $task->client_id;
-        // Сохраняем сообщение
         $message = new Message();
         $message->task_id = $taskId;
         $message->sender_id = Auth::user()->id;
@@ -77,19 +61,20 @@ class LookingPerformers extends Component
         $message->message = $this->message;
         
         $message->save();
+        $this->getChatMessages($this->performer_id,Auth::user()->id);
+        $this->dispatch('scrollDown');
+        $this->message = '';
+    }
 
-        $sms_performer_id = $this->performer_id;
-        $sms_client_id = Auth::user()->id;
+    public function getChatMessages($sms_performer_id, $sms_client_id){
         $this->messages = Message::where('task_id', $this->task->id)
-                ->where(function ($query) use ($sms_performer_id, $sms_client_id) {
-                    $query->where('sender_id', $sms_performer_id)
-                        ->where('receiver_id', $sms_client_id);
-                })
-                ->orWhere(function ($query) use ($sms_performer_id, $sms_client_id) {
-                    $query->where('sender_id', $sms_client_id)
-                        ->where('receiver_id', $sms_performer_id);
-                })->get();
-                $this->message = '';
-        // return redirect()->route('messages.index', $taskId)->with('success', 'Сообщение отправлено.');
+        ->where(function ($query) use ($sms_performer_id, $sms_client_id) {
+            $query->where('sender_id', $sms_performer_id)
+                ->where('receiver_id', $sms_client_id);
+        })
+        ->orWhere(function ($query) use ($sms_performer_id, $sms_client_id) {
+            $query->where('sender_id', $sms_client_id)
+                ->where('receiver_id', $sms_performer_id);
+        })->get();
     }
 }

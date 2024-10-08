@@ -12,7 +12,7 @@
                     <x-stages.second.offers :bid='$bid' :visibleDivId='$visibleDivId' :messages="$messages" wire:key='$bid->id'/>
                 @endforeach
             </div>
-        </div>
+        </div> 
 
         <div>
             <p class="text-[22px] my-[20px] text-gray-500 py-1">Статус заказа</p>
