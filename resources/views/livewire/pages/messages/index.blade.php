@@ -1,9 +1,9 @@
-<div class="container mx-auto px-4 pb-2 h-full overflow-auto">
+<div class="container h-full px-4 pb-2 mx-auto overflow-auto">
     
-    <div class="bg-gray-200  w-full flex flex-col shadow-md rounded-md">
+    <div class="flex flex-col w-full bg-gray-200 rounded-md shadow-md">
         {{-- chat message div started --}}
         <div class="flex items-center">
-            <h1 class="text-3xl font-bold pl-6 py-1 text-gray-600">{{ $task->title }}</h1>
+            <h1 class="py-1 pl-6 text-3xl font-bold text-gray-600">{{ $task->title }}</h1>
         </div>
         <div class="relative p-4 flex flex-col justify-between h-[700px]">                
             <div id="messageContainer" class="w-full space-y-4 h-[700px] rounded-md shadow-md overflow-auto p-4 bg-white">
@@ -29,7 +29,7 @@
                 </div>
                 {{-- bid message end --}}
                 {{-- message start --}}
-                <div wire:poll.6000ms='getMessagess({{ $bid->task_id}})' class="flex flex-col w-full gap-6">
+                <div wire:poll.6000ms='getMessagess({{ $bid->task_id}}, {{$task->client_id}})' class="flex flex-col w-full gap-6">
                     @if(isset($messages) && $messages->isNotEmpty())
                         @foreach ($messages as $message)
                             <div class="flex {{ $message->sender_id == auth()->user()->id ? 'justify-end' : 'justify-start' }}">
@@ -71,7 +71,7 @@
                 {{-- message end --}}
             </div>
             <div class="h-[240px]"></div>  
-            <div class="absolute bottom-0 left-0 right-0 bg-gray-200 p-4">
+            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gray-200">
                 <div class="w-full border border-gray-200 rounded-b-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                     <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                         <label for="comment" class="sr-only">Your comment</label>

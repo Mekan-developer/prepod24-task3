@@ -22,8 +22,21 @@ class MessageController extends Controller
         //     abort(403, 'У вас нет доступа к этому чату.');
         // }
 
-        // Получаем все сообщения по этому заданию
-        $messages = Message::where('task_id', $taskId)->orderBy('created_at')->get();
+        $task_id = $task->id;
+        $client_id = $task->client_id;
+        $auth_user_id = auth()->user()->id;
+        
+        // Get all messages related to this task between the client and authenticated user
+        $messages = Message::where(function ($query) use ($task_id, $client_id, $auth_user_id) {
+            $query->where('task_id', $task_id)
+                  ->where('sender_id', $client_id)
+                  ->where('receiver_id', $auth_user_id);
+        })->orWhere(function ($query) use ($task_id, $client_id, $auth_user_id) {
+            $query->where('task_id', $task_id)
+                  ->where('sender_id', $auth_user_id)
+                  ->where('receiver_id', $client_id);
+        })->orderBy('created_at')->get();
+        
 
         return view('pages.messages.index', compact('task', 'messages','bid'));
     }

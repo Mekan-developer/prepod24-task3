@@ -2,9 +2,8 @@
 
 namespace App\Livewire\stages\second;
 
-use App\Livewire\Pages\Messages\Index;
+
 use App\Models\Message;
-use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -21,7 +20,6 @@ class LookingPerformers extends Component
 
     public function mount($task,$bids)
     {
-        sleep(0.5);
         $this->bids = $bids;
         $this->task = $task;
     }
@@ -39,8 +37,9 @@ class LookingPerformers extends Component
             $this->performer_id = $id;
             $this->visibleDivId = $id;
             
-            $this->getChatMessages($id,$this->task->client_id);
+            $this->getChatMessages($id);
             $this->dispatch('scrollDown');
+            
         }
     }
     public function updatedSendFile()
@@ -61,21 +60,28 @@ class LookingPerformers extends Component
         $message->message = $this->message;
         
         $message->save();
-        $this->getChatMessages($this->performer_id,Auth::user()->id);
+        $this->getChatMessages($this->performer_id);
+        
         $this->dispatch('scrollDown');
-        $this->message = '';
     }
 
-    public function getChatMessages($sms_performer_id, $sms_client_id){
-        $this->messages = Message::where('task_id', $this->task->id)
-        ->where(function ($query) use ($sms_performer_id, $sms_client_id) {
-            $query->where('sender_id', $sms_performer_id)
-                ->where('receiver_id', $sms_client_id);
-        })
-        ->orWhere(function ($query) use ($sms_performer_id, $sms_client_id) {
-            $query->where('sender_id', $sms_client_id)
+    public function getChatMessages($sms_performer_id){
+        
+
+        $task_id = $this->task->id;
+        $auth_user = auth()->user()->id;
+
+        // Get all messages related to this task between the client and authenticated user
+        $this->messages = Message::where(function ($query) use ($task_id, $auth_user, $sms_performer_id) {
+            $query->where('task_id', $task_id)
+                ->where('sender_id', $auth_user)
                 ->where('receiver_id', $sms_performer_id);
-        })->get();
+        })->orWhere(function ($query) use ($task_id, $auth_user, $sms_performer_id) {
+            $query->where('task_id', $task_id)
+                ->where('sender_id', $sms_performer_id)
+                ->where('receiver_id', $auth_user);
+        })->orderBy('created_at')->get();
+
 
         // online user start
         $user = Auth::user();

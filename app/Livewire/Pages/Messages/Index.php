@@ -18,7 +18,6 @@ class Index extends Component
     }
     public function render()
     {
-
         return view('livewire.pages.messages.index');
     }
 
@@ -27,7 +26,7 @@ class Index extends Component
         
         // Получаем задание
         $task = Task::findOrFail($taskId);
-
+        $client_id = $task->client_id;
         // Сохраняем сообщение
         $message = new Message();
         $message->task_id = $taskId;
@@ -36,19 +35,33 @@ class Index extends Component
         $message->message = $this->message;
         
         $message->save();
-        $this->getMessagess($taskId);
+        $this->getMessagess($taskId,$client_id);
         $this->message = '';
     }
 
     
-    public function getMessagess($id){
+    public function getMessagess($id,$client_id){
         // online user start
         $user = Auth::user();
         $user->last_active_at = now();
         $user->save();
         // online user end
         
-        $this->messages = Message::where('task_id', $id)->where('sender_id',auth()->user()->id || 'receiver_id',auth()->user()->id)->orderBy('created_at')->get();
+        $task_id = $id;
+        $auth_user_id = auth()->user()->id;
+
+        // Get all messages related to this task between the client and authenticated user
+        $this->messages = Message::where(function ($query) use ($task_id, $client_id, $auth_user_id) {
+            $query->where('task_id', $task_id)
+                ->where('sender_id', $client_id)
+                ->where('receiver_id', $auth_user_id);
+        })->orWhere(function ($query) use ($task_id, $client_id, $auth_user_id) {
+            $query->where('task_id', $task_id)
+                ->where('sender_id', $auth_user_id)
+                ->where('receiver_id', $client_id);
+        })->orderBy('created_at')->get();
+
+// 
         $this->dispatch('messageSent');
     }
 
