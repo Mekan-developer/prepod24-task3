@@ -76,5 +76,11 @@ class LookingPerformers extends Component
             $query->where('sender_id', $sms_client_id)
                 ->where('receiver_id', $sms_performer_id);
         })->get();
+
+        // online user start
+        $user = Auth::user();
+        $user->last_active_at = now();
+        $user->save();
+        // online user end
     }
 }

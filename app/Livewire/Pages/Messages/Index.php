@@ -42,7 +42,13 @@ class Index extends Component
 
     
     public function getMessagess($id){
-        $this->messages = Message::where('task_id', $id)->orderBy('created_at')->get();
+        // online user start
+        $user = Auth::user();
+        $user->last_active_at = now();
+        $user->save();
+        // online user end
+        
+        $this->messages = Message::where('task_id', $id)->where('sender_id',auth()->user()->id || 'receiver_id',auth()->user()->id)->orderBy('created_at')->get();
         $this->dispatch('messageSent');
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('sender_id'); // ID отправителя (может быть заказчик или исполнитель)
             $table->unsignedBigInteger('receiver_id'); // ID получателя
             $table->text('message'); // Текст сообщения
+            $table->boolean('showed_receiver')->default(false);
             $table->timestamps(); // Время отправки сообщения
 
             // Внешние ключи

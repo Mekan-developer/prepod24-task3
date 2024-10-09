@@ -1,8 +1,11 @@
 @php
     use App\Models\Bid;
     $new_bids_count = Bid::where('showed_client', 0)->whereHas('getTask', function ($query) { $query->where('client_id', auth()->user()->id); })->count();
-@endphp
 
+    use App\Models\Message;
+    $message_count = Message::where('showed_receiver', 0)->where('receiver_id', auth()->user()->id)->count();
+    $new_message_count =  $message_count + $new_bids_count;
+@endphp
 
 <nav class="relative bg-white shadow" >
     <div class="w-[1200px] px-4 mx-auto">
@@ -26,7 +29,6 @@
                         <a href="{{route('tasks.showTasks')}}" wire:navigate>
                         Все задания</a>
                     </li>
-
                 </ul>
                 <ul class="flex items-center ml-auto space-x-10">
                     <li class="flex items-center justify-center">
@@ -36,7 +38,10 @@
                     </li>
                     <li class="relative mr-4 cursor-pointer group">
                         <x-heroicon-o-envelope class="w-[35px]" />
-                        <div class="absolute -top-[4px] -right-1 text-white bg-red-600 border-2 border-white rounded-full text-[12px] w-[22px] text-center aspect-square"> 1</div>
+
+                        @if(isset($new_message_count) && $new_message_count !=0 )
+                            <div class="absolute -top-[4px] -right-1 text-white bg-red-600 border-2 border-white rounded-full text-[12px] w-[22px] text-center aspect-square">{{ $new_message_count }} </div>
+                        @endif
 
                         <div class="hidden absolute top-[calc(100%+26px)] right-[calc(100%-45px)] group-hover:block ">
                             <span class="px-4 py-3 border border-blue-300 rounded-sm text-nowrap">

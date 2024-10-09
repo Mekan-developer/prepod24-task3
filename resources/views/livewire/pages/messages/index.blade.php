@@ -1,9 +1,12 @@
 <div class="container mx-auto px-4 pb-2 h-full overflow-auto">
-    <h1 class="text-3xl font-bold mb-6 text-gray-800">Чат для задания: {{ $task->title }}</h1>
-    <div class="bg-white w-full flex flex-col shadow-md rounded-md">
+    
+    <div class="bg-gray-200  w-full flex flex-col shadow-md rounded-md">
         {{-- chat message div started --}}
-        <div class="p-4 flex flex-col justify-between">                
-            <div id="messageContainer" class="w-full space-y-4  max-h-[500px] overflow-auto hide-scrollbar">
+        <div class="flex items-center">
+            <h1 class="text-3xl font-bold pl-6 py-1 text-gray-600">{{ $task->title }}</h1>
+        </div>
+        <div class="relative p-4 flex flex-col justify-between h-[700px]">                
+            <div id="messageContainer" class="w-full space-y-4 h-[700px] rounded-md shadow-md overflow-auto p-4 bg-white">
                 {{-- bid message start --}}
                 <div class="flex justify-end gap-4">
                     <div class="flex flex-row-reverse justify-start gap-4">
@@ -32,11 +35,11 @@
                             <div class="flex {{ $message->sender_id == auth()->user()->id ? 'justify-end' : 'justify-start' }}">
                                 <div class="flex gap-4 {{ $message->sender_id == auth()->user()->id ? 'flex-row-reverse' : '' }}">
                                     <div>
-                                        @if (isset(auth()->user()->getProfile->image))
+                                        @if (isset(auth()->user()->getProfile->image) || isset($message->sender->getProfile->image))
                                             @if($message->sender_id == auth()->user()->id)
                                                 <div class="bg-center bg-cover w-[30px] h-[30px] rounded-full" style="background-image: url('{{ asset('storage/userImage/'.auth()->user()->getProfile->image) }}');"></div>
-                                            @elseif($bid->getPerformer->getProfile->image)
-                                                <div class="bg-center bg-cover w-[30px] h-[30px] rounded-full" style="background-image: url('{{ asset('storage/userImage/'.$bid->getPerformer->getProfile->image) }}');"></div>
+                                            @elseif(isset($message->sender->getProfile->image))
+                                                <div class="bg-center bg-cover w-[30px] h-[30px] rounded-full" style="background-image: url('{{ asset('storage/userImage/'.$message->sender->getProfile->image) }}');"></div>
                                             @else
                                                 <x-heroicon-s-user class="bg-black text-gray-50 w-[30px] aspect-square rounded-full" />
                                             @endif
@@ -44,13 +47,12 @@
                                             <x-heroicon-s-user class="bg-black text-gray-50 w-[30px] aspect-square rounded-full" />
                                         @endif
                                     </div>
-                                    <div class="relative flex flex-col gap-1 bg-gray-200 border-2 border-gray-400 px-2 py-1 rounded-[4px]">
+                                    <div class="relative flex flex-col bg-gray-200 border-2 border-gray-400 px-2 py-1 rounded-[4px]">
                                         <div class="absolute w-[12px] aspect-square border-t-2 border-l-2 border-gray-400 bg-gray-200 
                                             top-[10px] {{ $message->sender_id == auth()->user()->id ? 'rotate-[135deg] -right-[7px]' : '-rotate-45 -left-[7px]' }} "></div>
                                         @if($message->sender_id != auth()->user()->id)
-                                            {{-- <div class="absolute w-[12px] aspect-square border-t-2 border-l-2 border-gray-400 bg-gray-200 -rotate-45 top-[10px] -left-[7px]"></div> --}}
                                             <h4 class="flex items-center gap-2">
-                                                {{$bid->getPerformer->name}}
+                                                {{$message->sender->name}}
                                                 @if($bid->getPerformer->is_online)
                                                     <div class="w-[10px] aspect-square rounded-full border-2 border-green-400"></div>
                                                 @else 
@@ -58,7 +60,6 @@
                                                 @endif
                                             </h4>
                                         @endif
-
                                         <span class="text-xs">{{$message->created_at->format('Y-m-d H:i')}}</span>
                                         <p>{{ $message->message }}</p>
                                     </div>
@@ -66,19 +67,20 @@
                             </div>
                         @endforeach
                     @endif
-                </div>                
+                </div>
                 {{-- message end --}}
             </div>
-
-            <div class="my-4">
-                <div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+            <div class="h-[240px]"></div>  
+            <div class="absolute bottom-0 left-0 right-0 bg-gray-200 p-4">
+                <div class="w-full border border-gray-200 rounded-b-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                     <div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
                         <label for="comment" class="sr-only">Your comment</label>
-                        <textarea wire:model='message' id="comment" rows="4" class="w-full px-0 text-sm text-gray-900 bg-white border-0 outline-none focus:border-none"
-                            placeholder="Write a comment..."  ></textarea>
+                        <textarea wire:model='message' id="comment" rows="4"
+                            class="w-full px-0 text-sm text-gray-900 bg-white border-0 outline-none focus:border-none"
+                            placeholder="chat..."  ></textarea>
                     </div>
                     <div class="flex flex-row-reverse items-center justify-between px-3 py-2 border-t dark:border-gray-600">
-                        <button wire:click="store({{$task->id}})" class="inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                        <button wire:click="store({{$task->id}})" class="active:scale-[0.9] inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                             Отправить
                         </button>
                         <div class="flex space-x-1 ps-0 rtl:space-x-reverse sm:ps-2">

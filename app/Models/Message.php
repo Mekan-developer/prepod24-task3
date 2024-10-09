@@ -17,4 +17,9 @@ class Message extends Model
     public function sender(){
         return $this->HasOne(User::class,'id','sender_id');
     }
+
+    public function getTask(){
+        return $this->belongsTo(Task::class,'task_id','id');
+    }
+    
 }
