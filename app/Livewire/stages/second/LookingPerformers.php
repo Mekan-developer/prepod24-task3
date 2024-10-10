@@ -61,7 +61,7 @@ class LookingPerformers extends Component
         
         $message->save();
         $this->getChatMessages($this->performer_id);
-        
+        $this->message = '';
         $this->dispatch('scrollDown');
     }
 

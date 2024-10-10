@@ -8,13 +8,14 @@ use App\Models\Task;
 class TaskController extends Controller
 {
     public function showTasks(){
+        $userImage = auth()->user()->profile->image;
          // Get all tasks that are "Looking for performer" and don't have an assigned performer yet
         $tasks = Task::where('status', 'Looking for performer')
         ->whereNull('performer_id')->where('client_id','!=', auth()->user()->id)
         ->with('getClient') // Assuming you have a relationship to get the client
         ->paginate(10);
     
-        return view('pages.performer.all-tasks', compact('tasks'));
+        return view('pages.performer.all-tasks', compact('tasks','userImage'));
     }
 
     public function show($id)

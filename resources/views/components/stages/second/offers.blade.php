@@ -102,7 +102,7 @@
                 </div>
                 {{-- bid message end --}}
                 {{-- message start --}}
-                <div wire:poll.1000ms='getChatMessages({{$bid->performer_id}}, {{auth()->user()->id}})' class="flex flex-col w-full gap-6 ">
+                <div wire:poll.1000ms='getChatMessages({{$bid->getPerformer->id}})' class="flex flex-col w-full gap-6 ">
                     @if(isset($messages) && $messages->isNotEmpty())
                         @foreach ($messages as $message)
                             <div class="flex {{ $message->sender_id == auth()->user()->id ? 'justify-end' : 'justify-start' }}">
