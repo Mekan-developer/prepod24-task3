@@ -65,8 +65,10 @@ class LookingPerformers extends Component
         $this->dispatch('scrollDown');
     }
 
-    public function getChatMessages($sms_performer_id){
-        
+    public function getChatMessages($sms_performer_id = null){
+        if($sms_performer_id == null){
+            $sms_performer_id = $this->visibleDivId;
+        }
 
         $task_id = $this->task->id;
         $auth_user = auth()->user()->id;
