@@ -53,7 +53,7 @@
                                         @if($message->sender_id != auth()->user()->id)
                                             <h4 class="flex items-center gap-2">
                                                 {{$message->sender->name}}
-                                                @if($bid->getPerformer->is_online)
+                                                @if($message->sender->is_online)
                                                     <div class="w-[10px] aspect-square rounded-full border-2 border-green-400"></div>
                                                 @else 
                                                     <div class="w-[10px] aspect-square rounded-full border-2 border-red-400"></div>
